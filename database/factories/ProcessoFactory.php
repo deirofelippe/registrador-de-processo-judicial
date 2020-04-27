@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Processo::class, function (Faker $faker) {
     return [
-        'numeroProcesso' => $faker->title,
+        'numeroProcesso' => $faker->unique()->phoneNumber,
         'autor' => $faker->name,
         'vara' => $faker->title
     ];

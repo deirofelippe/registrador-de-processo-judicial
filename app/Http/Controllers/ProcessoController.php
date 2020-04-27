@@ -21,6 +21,8 @@ class ProcessoController extends Controller
      */
     public function index()
     {
+        $processos = $this->service->listar();
+        return view('processo.processo-list')->with('processos', $processos);
     }
 
     /**
@@ -30,7 +32,7 @@ class ProcessoController extends Controller
      */
     public function create()
     {
-        return view('processo');
+        return view('processo.processo-form');
     }
 
     /**
@@ -49,7 +51,7 @@ class ProcessoController extends Controller
 
         $processo = $this->service->store($request);
 
-        return view('welcome');
+        return view('processo.processo-list')->with('processo', $processo);
     }
 
     /**
@@ -58,9 +60,10 @@ class ProcessoController extends Controller
      * @param  \App\Processo  $processo
      * @return \Illuminate\Http\Response
      */
-    public function show(Processo $processo)
+    public function show($idProcesso)
     {
-        //
+        $processo = $this->service->buscarProcesso($idProcesso);
+        return view('processo.processo')->with('processo', $processo);
     }
 
     /**
@@ -69,7 +72,7 @@ class ProcessoController extends Controller
      * @param  \App\Processo  $processo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Processo $processo)
+    public function edit($idProcesso)
     {
         //
     }
@@ -92,7 +95,7 @@ class ProcessoController extends Controller
      * @param  \App\Processo  $processo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Processo $processo)
+    public function destroy($idProcesso)
     {
         //
     }

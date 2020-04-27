@@ -14,6 +14,14 @@ class ProcessoService
     }
 
     public function store(Request $request){
-        return $this->dao->store($request->all());
+        return $this->dao->incluir($request->all());
+    }
+
+    public function listar(){
+        return $this->dao->listar();
+    }
+
+    public function buscarProcesso($idProcesso){
+        return $this->dao->buscarProcesso($idProcesso);
     }
 }

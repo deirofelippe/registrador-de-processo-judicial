@@ -11,5 +11,16 @@ php artisan make:model Models/Processo -mrc
 php artisan make:test ProcessoTest
 php artisan make:factory ProcessoFactory --model=Models/Processo
 
-php artisan migrate
+composer require laravel/ui
+php artisan ui bootstrap --auth
+npm install
+npm run dev
+
+composer remove laravel/tinker
+composer require laravel/tinker --dev
+sudo php artisan tinker
+factory(App\Models\Processo::class, 20)->create();
+
+sudo php artisan migrate
+sudo php artisan migrate:fresh
 

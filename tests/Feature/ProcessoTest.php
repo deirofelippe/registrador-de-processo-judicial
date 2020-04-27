@@ -37,4 +37,25 @@ class ProcessoTest extends TestCase
 
         $response->assertSessionHasErrors('autor');
     }
+
+    public function testUmProcesso(){
+        $processo = factory(Processo::class)->create();
+        $response = $this->get('/processo');
+
+        $response
+        ->assertSee($processo->numeroProcesso)
+        ->assertSee($processo->autor)
+        ->assertSee($processo->vara);
+    }
+
+    public function testListarProcesso(){
+        $processos = factory(Processo::class, 10)->create();
+        $this->get('/processos');
+
+        $this->assertEquals(10, $processos->count());
+    }
+
+    public function testAtualizarProcesso(){}
+
+    public function testDeletarProcesso(){}
 }

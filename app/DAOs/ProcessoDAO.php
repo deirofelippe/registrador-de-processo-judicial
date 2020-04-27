@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProcessoDAO
 {
-    public function store(array $data){
+    public function incluir(array $data){
         $processo = Processo::create([
             'numeroProcesso' => $data['numeroProcesso'],
             'autor' => $data['autor'],
@@ -15,5 +15,13 @@ class ProcessoDAO
         ]);
 
         return $processo;
+    }
+
+    public function listar(){
+        return Processo::all();
+    }
+
+    public function buscarProcesso($idProcesso){
+        return Processo::find($idProcesso);
     }
 }
