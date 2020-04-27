@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/processo/form', 'ProcessoController@create');
+Route::post('/processo', 'ProcessoController@store');
+
 Route::get('/', function () {
     return view('welcome');
 });

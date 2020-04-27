@@ -1,0 +1,15 @@
+elasticsearch, relatorio, grafico
+ajax, bootstrap
+
+deploy no heroku
+
+registrador-de-processo-judicial
+
+
+
+php artisan make:model Models/Processo -mrc
+php artisan make:test ProcessoTest
+php artisan make:factory ProcessoFactory --model=Models/Processo
+
+php artisan migrate
+
