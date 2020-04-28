@@ -9,6 +9,7 @@
                 @csrf
                 <input type="submit" value="Deletar">
             </form>
+            <a href="/processo/{{$processo->id}}/edit">Editar</a>
         </div>
         <br>
     @endforeach

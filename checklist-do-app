@@ -24,3 +24,8 @@ factory(App\Models\Processo::class, 20)->create();
 sudo php artisan migrate
 sudo php artisan migrate:fresh
 
+
+
+
+
+composer remove laravel/tinker && composer require laravel/tinker --dev && composer require laravel/ui && php artisan ui bootstrap --auth && npm install && npm run dev

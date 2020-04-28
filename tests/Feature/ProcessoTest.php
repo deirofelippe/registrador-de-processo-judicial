@@ -10,16 +10,16 @@ class ProcessoTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testAdicionarProcesso(){
+    public function test_adicionar_processo(){
         $processo = factory(Processo::class)->make();
         $response = $this->post('/processo', $processo->toArray());
 
         $this->assertDatabaseHas('processos', $processo->toArray());
         $this->assertEquals(1, Processo::all()->count());
-        $response->assertStatus(200);
+        $response->assertStatus(201);
     }
 
-    public function testValidacaoRequired(){
+    public function test_validacao_required(){
         $data = [
             'numeroProcesso' => null,
             'autor' => null,
@@ -31,14 +31,14 @@ class ProcessoTest extends TestCase
         $response->assertSessionHasErrors(['numeroProcesso','autor','vara']);
     }
 
-    public function testValidacaoString(){
+    public function test_validacao_string(){
         $processo = factory(Processo::class)->make(['autor' => 0000000]);
         $response = $this->post('/processo', $processo->toArray());
 
         $response->assertSessionHasErrors('autor');
     }
 
-    public function testUmProcesso(){
+    public function test_buscar_um_processo(){
         $processo = factory(Processo::class)->create();
         $response = $this->get('/processo');
 
@@ -48,14 +48,30 @@ class ProcessoTest extends TestCase
         ->assertSee($processo->vara);
     }
 
-    public function testListarProcesso(){
+    public function test_listar_processos(){
         $processos = factory(Processo::class, 10)->create();
         $this->get('/processos');
 
         $this->assertEquals(10, $processos->count());
     }
 
-    public function testAtualizarProcesso(){}
+    public function test_atualizar_processo(){
+        $processo = factory(Processo::class)->create();
+        $processo->vara = 'atualizado';
+        $response = $this->put('/processo', $processo->toArray());
+        $response->assertRedirect('/processos');
+    }
+
+    public function test_abrir_formulario_para_atualizar_processo(){
+        $processo = factory(Processo::class)->create();
+        $id = $processo->id;
+        $response = $this->get("/processo/{$id}/edit");
+
+        $response
+        ->assertSee($processo->numeroProcesso)
+        ->assertSee($processo->autor)
+        ->assertSee($processo->vara);
+    }
 
     public function testDeletarProcesso(){}
 }

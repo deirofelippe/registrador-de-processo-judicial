@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/processo/form', 'ProcessoController@create');
 Route::post('/processo', 'ProcessoController@store');
-Route::put('/processo', 'ProcessoController@');
+Route::put('/processo', 'ProcessoController@update');
 Route::delete('/processo', 'ProcessoController@destroy');
 Route::get('/processo/{idProcesso}', 'ProcessoController@show');
-Route::get('/processo/{idProcesso}/edit', 'ProcessoController@show');
+Route::get('/processo/{idProcesso}/edit', 'ProcessoController@edit');
 Route::get('/processos', 'ProcessoController@index');
 Route::get('/', 'ProcessoController@index');

@@ -74,7 +74,8 @@ class ProcessoController extends Controller
      */
     public function edit($idProcesso)
     {
-        //
+        $processo = $this->service->buscarProcesso($idProcesso);
+        return view('processo.processo-edit')->with('processo', $processo);
     }
 
     /**
@@ -84,9 +85,10 @@ class ProcessoController extends Controller
      * @param  \App\Processo  $processo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Processo $processo)
+    public function update(Request $request)
     {
-        //
+        $this->service->atualizar($request);
+        return redirect('/processos');
     }
 
     /**
