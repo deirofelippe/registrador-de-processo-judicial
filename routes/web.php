@@ -21,3 +21,7 @@ Route::get('/processo/{idProcesso}', 'ProcessoController@show');
 Route::get('/processo/{idProcesso}/edit', 'ProcessoController@edit');
 Route::get('/processos', 'ProcessoController@index');
 Route::get('/', 'ProcessoController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
