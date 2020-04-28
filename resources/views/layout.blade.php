@@ -20,6 +20,15 @@
                 margin: 0;
             }
 
+            .deletado p {
+                margin: 2px auto;
+                border: 1px solid #d63031;
+                border-radius: 3px;
+                background-color: #fab1a0;
+                color: #d63031;
+                padding: 2px 5px;
+            }
+
             .full-height {
                 height: 100vh;
             }

@@ -1,5 +1,14 @@
 @extends('layout')
 @section('content')
+    @isset($processoDeletado)
+        <div class="deletado">
+            <h3>Processo deletado!</h3>
+            <p>Número do processo: {{$processoDeletado->numeroProcesso}}</p>
+            <p>Autor: {{$processoDeletado->autor}}</p>
+            <p>Vara: {{$processoDeletado->vara}}</p>
+        </div>
+    @endisset
+
     @foreach ($processos as $processo)
         <div>
             Autor do processo: <a href="/processo/{{$processo->id}}">{{$processo->autor}}</a>

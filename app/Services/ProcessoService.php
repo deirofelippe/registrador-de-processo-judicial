@@ -38,4 +38,8 @@ class ProcessoService
 
         return $this->dao->atualizar($id, $data);
     }
+
+    public function deletar($idProcesso): Processo {
+        return $this->dao->deletar($idProcesso);
+    }
 }

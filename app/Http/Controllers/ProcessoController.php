@@ -51,7 +51,7 @@ class ProcessoController extends Controller
 
         $processo = $this->service->store($request);
 
-        return view('processo.processo-list')->with('processo', $processo);
+        return redirect('/processos');
     }
 
     /**
@@ -99,6 +99,11 @@ class ProcessoController extends Controller
      */
     public function destroy($idProcesso)
     {
-        //
+        $processoDeletado = $this->service->deletar($idProcesso);
+        $processos = $this->service->listar();
+
+        return view('processo.processo-list')
+        ->with('processoDeletado', $processoDeletado)
+        ->with('processos', $processos);
     }
 }

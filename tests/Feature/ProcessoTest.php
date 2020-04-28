@@ -12,11 +12,10 @@ class ProcessoTest extends TestCase
 
     public function test_adicionar_processo(){
         $processo = factory(Processo::class)->make();
-        $response = $this->post('/processo', $processo->toArray());
+        $this->post('/processo', $processo->toArray());
 
         $this->assertDatabaseHas('processos', $processo->toArray());
         $this->assertEquals(1, Processo::all()->count());
-        $response->assertStatus(201);
     }
 
     public function test_validacao_required(){
@@ -57,9 +56,18 @@ class ProcessoTest extends TestCase
 
     public function test_atualizar_processo(){
         $processo = factory(Processo::class)->create();
-        $processo->vara = 'atualizado';
-        $response = $this->put('/processo', $processo->toArray());
+
+        $data = [
+            'id' => $processo->id,
+            'numeroProcesso' => $processo->numeroProcesso,
+            'autor' => $processo->autor,
+            'vara' => 'atualizado',
+        ];
+
+        $response = $this->put('/processo', $data);
+
         $response->assertRedirect('/processos');
+        $this->assertDatabaseHas('processos', $data);
     }
 
     public function test_abrir_formulario_para_atualizar_processo(){
@@ -73,5 +81,15 @@ class ProcessoTest extends TestCase
         ->assertSee($processo->vara);
     }
 
-    public function testDeletarProcesso(){}
+    public function test_deletar_processo(){
+        $processo = factory(Processo::class)->create();
+        $id = $processo->id;
+        $response = $this->delete("/processo/{$id}");
+
+        $this->assertDatabaseMissing('processos', $processo->toArray());
+        $response
+        ->assertSee($processo->numeroProcesso)
+        ->assertSee($processo->autor)
+        ->assertSee($processo->vara);
+    }
 }

@@ -27,4 +27,10 @@ class ProcessoDAO
         Processo::where('id', $id)->update($data);
         return Processo::find($id);
     }
+
+    public function deletar($idProcesso): Processo {
+        $processo = Processo::find($idProcesso);
+        Processo::destroy($idProcesso);
+        return $processo;
+    }
 }
