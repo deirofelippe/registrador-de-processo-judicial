@@ -2,5 +2,7 @@
     <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" href="/processos">Listar processos</a></li>
         <li class="nav-item"><a class="nav-link" href="/processo/form">Formulário de processo</a></li>
+        <li class="nav-item"><a class="nav-link" href="/relatorio/processos">Gerar relatório</a></li>
     </ul>
 </nav>
+

@@ -11,7 +11,7 @@
 
                     <div class="form-group row">
                         <label for="numeroProcesso" class="col-4 col-form-label">Número do processo: </label>
-                        <input type="text" name="numeroProcesso" id="numeroProcesso" class="form-control form-control-lg col-8">
+                        <input type="text" name="numeroProcesso" id="numeroProcesso" class="form-control col-8">
                     </div>
 
                     <div class="form-group row">
@@ -21,7 +21,7 @@
 
                     <div class="form-group row">
                         <label for="vara" class="col-4 col-form-label">Vara: </label>
-                        <input type="text" name="vara" id="vara" class="form-control form-control-lg col-8">
+                        <input type="text" name="vara" id="vara" class="form-control col-8">
                     </div>
 
                     <div class="row">

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Processo;
 use App\Services\ProcessoService;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class ProcessoController extends Controller
 {
@@ -19,8 +21,7 @@ class ProcessoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $processos = $this->service->listar();
         return view('processo.processo-list')->with('processos', $processos);
     }
@@ -105,5 +106,10 @@ class ProcessoController extends Controller
         return view('processo.processo-list')
         ->with('processoDeletado', $processoDeletado)
         ->with('processos', $processos);
+    }
+
+    public function gerarRelatorio(){
+        $response = $this->service->gerarRelatorio();
+        return $response;
     }
 }
