@@ -21,8 +21,14 @@ class ProcessoService {
         return $this->dao->incluir($request->all());
     }
 
-    public function listar(): Collection {
-        return $this->dao->listar();
+    public function listarSemPaginacao(): Collection {
+        return $this->dao->listarSemPaginacao();
+    }
+
+    public function listarComPaginacao(Request $request) {
+        $itensPorPagina = $request->itensPorPagina ?? 20;
+        $processos = $this->dao->listarComPaginacao($itensPorPagina);
+        return $processos;
     }
 
     public function buscarProcesso($idProcesso): Processo {
@@ -46,7 +52,7 @@ class ProcessoService {
     }
 
     public function gerarRelatorio() {
-        $processos = $this->dao->listar();
+        $processos = $this->dao->listarSemPaginacao();
         return $this->relatorio->gerarRelatorio($processos);
     }
 }

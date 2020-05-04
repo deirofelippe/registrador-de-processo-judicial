@@ -21,9 +21,9 @@ class ProcessoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
-        $processos = $this->service->listar();
-        return view('processo.processo-list')->with('processos', $processos);
+    public function index(Request $request){
+        $processos = $this->service->listarComPaginacao($request);
+        return view('processo.processo-list', ['processos' => $processos]);
     }
 
     /**
@@ -98,10 +98,10 @@ class ProcessoController extends Controller
      * @param  \App\Processo  $processo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idProcesso)
+    public function destroy(Request $request, $idProcesso)
     {
         $processoDeletado = $this->service->deletar($idProcesso);
-        $processos = $this->service->listar();
+        $processos = $this->service->listarComPaginacao($request);
 
         return view('processo.processo-list')
         ->with('processoDeletado', $processoDeletado)

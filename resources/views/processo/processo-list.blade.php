@@ -21,7 +21,11 @@
                 </tbody>
             </table>
         </div>
-    @endisset
+        @endisset
+
+    <div class="container mt-2 d-flex justify-content-center">
+        {{ $processos->onEachSide(5)->links() }}
+    </div>
 
     <div class="container mt-2 d-flex w-50 justify-content-center">
         <table class="table table-striped table-bordered table-sm">
@@ -54,5 +58,9 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <div class="container mt-2 d-flex justify-content-center">
+        {{ $processos->onEachSide(3)->links() }}
     </div>
 @endsection

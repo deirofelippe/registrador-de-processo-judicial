@@ -15,8 +15,12 @@ class ProcessoDAO
         ]);
     }
 
-    public function listar(): Collection {
+    public function listarSemPaginacao(): Collection {
         return Processo::all();
+    }
+
+    public function listarComPaginacao(int $itensPorPagina){
+        return Processo::paginate();
     }
 
     public function buscarProcesso($idProcesso): Processo {
