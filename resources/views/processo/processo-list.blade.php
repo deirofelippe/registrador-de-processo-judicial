@@ -27,6 +27,12 @@
         {{ $processos->onEachSide(5)->links() }}
     </div>
 
+    <div class="card container">
+        <div class="card-body">
+            <h4>Resultado: {{$processos->total()}}</h1>
+        </div>
+    </div>
+
     <div class="container mt-2 d-flex w-50 justify-content-center">
         <table class="table table-striped table-bordered table-sm">
             <thead>
@@ -60,7 +66,7 @@
         </table>
     </div>
 
-    <div class="container mt-2 d-flex justify-content-center">
+    <div class="container d-flex justify-content-center">
         {{ $processos->onEachSide(3)->links() }}
     </div>
 @endsection

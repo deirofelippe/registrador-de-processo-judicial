@@ -23,6 +23,7 @@ Route::get('/processo/{idProcesso}/edit', 'ProcessoController@edit');
 Route::get('/processos', 'ProcessoController@index');
 Route::get('/', 'ProcessoController@index');
 Route::get('/relatorio/processos', 'ProcessoController@gerarRelatorio');
+Route::get('/relatorio/email', 'ProcessoController@enviarRelatorioPorEmail');
 
 Auth::routes();
 

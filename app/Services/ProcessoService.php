@@ -3,10 +3,12 @@
 namespace App\Services;
 
 use App\DAOs\ProcessoDAO;
+use App\Mail\RelatorioDeProcessosMail;
 use App\Models\Processo;
 use App\Services\Relatorio\ProcessoRelatorio;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ProcessoService {
     private $dao;
@@ -53,6 +55,12 @@ class ProcessoService {
 
     public function gerarRelatorio() {
         $processos = $this->dao->listarSemPaginacao();
-        return $this->relatorio->gerarRelatorio($processos);
+        return $this->relatorio->gerarRelatorioStream($processos);
+    }
+
+    public function enviarRelatorioPorEmail($email) {
+        $processos = $this->dao->listarSemPaginacao();
+        $pdf = $this->relatorio->gerarRelatorioPdf($processos);
+        return Mail::to($email)->send(new RelatorioDeProcessosMail($pdf));
     }
 }

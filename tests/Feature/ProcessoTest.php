@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Mail\RelatorioDeProcessosMail;
 use App\Models\Processo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -98,5 +100,10 @@ class ProcessoTest extends TestCase
     public function test_gerar_relatorio(){
         $response = $this->get('/relatorio/processos');
         $response->assertHeader('content-type', 'application/pdf');
+    }
+
+    public function test_enviar_relatorio_email(){
+        $response = $this->get('/relatorio/email');
+        $response->assertRedirect('/processos');
     }
 }

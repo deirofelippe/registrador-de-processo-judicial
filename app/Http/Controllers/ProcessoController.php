@@ -112,4 +112,10 @@ class ProcessoController extends Controller
         $response = $this->service->gerarRelatorio();
         return $response;
     }
+
+    public function enviarRelatorioPorEmail(Request $request){
+        $email = 'seergiio.felippe@gmail.com';
+        $this->service->enviarRelatorioPorEmail($email);
+        return redirect('/processos');
+    }
 }
