@@ -9,6 +9,6 @@ $factory->define(Processo::class, function (Faker $faker) {
     return [
         'numeroProcesso' => $faker->unique()->phoneNumber,
         'autor' => $faker->name,
-        'vara' => $faker->paragraph
+        'vara' => $faker->sentence
     ];
 });

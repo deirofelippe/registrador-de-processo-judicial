@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Processo;
 use App\Services\ProcessoService;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class ProcessoController extends Controller
 {
@@ -19,10 +21,9 @@ class ProcessoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $processos = $this->service->listar();
-        return view('processo.processo-list')->with('processos', $processos);
+    public function index(Request $request){
+        $processos = $this->service->listarComPaginacao($request);
+        return view('processo.processo-list', ['processos' => $processos]);
     }
 
     /**
@@ -97,13 +98,24 @@ class ProcessoController extends Controller
      * @param  \App\Processo  $processo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idProcesso)
+    public function destroy(Request $request, $idProcesso)
     {
         $processoDeletado = $this->service->deletar($idProcesso);
-        $processos = $this->service->listar();
+        $processos = $this->service->listarComPaginacao($request);
 
         return view('processo.processo-list')
         ->with('processoDeletado', $processoDeletado)
         ->with('processos', $processos);
+    }
+
+    public function gerarRelatorio(){
+        $response = $this->service->gerarRelatorio();
+        return $response;
+    }
+
+    public function enviarRelatorioPorEmail(Request $request){
+        $email = 'seergiio.felippe@gmail.com';
+        $this->service->enviarRelatorioPorEmail($email);
+        return redirect('/processos');
     }
 }

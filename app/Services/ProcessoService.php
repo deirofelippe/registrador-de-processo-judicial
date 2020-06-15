@@ -3,24 +3,34 @@
 namespace App\Services;
 
 use App\DAOs\ProcessoDAO;
+use App\Mail\RelatorioDeProcessosMail;
 use App\Models\Processo;
+use App\Services\Relatorio\ProcessoRelatorio;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
-class ProcessoService
-{
+class ProcessoService {
     private $dao;
+    private $relatorio;
 
-    public function __construct(ProcessoDAO $dao){
+    public function __construct(ProcessoDAO $dao, ProcessoRelatorio $relatorio){
         $this->dao = $dao;
+        $this->relatorio = $relatorio;
     }
 
     public function store(Request $request): Processo {
         return $this->dao->incluir($request->all());
     }
 
-    public function listar(): Collection {
-        return $this->dao->listar();
+    public function listarSemPaginacao(): Collection {
+        return $this->dao->listarSemPaginacao();
+    }
+
+    public function listarComPaginacao(Request $request) {
+        $itensPorPagina = $request->itensPorPagina ?? 20;
+        $processos = $this->dao->listarComPaginacao($itensPorPagina);
+        return $processos;
     }
 
     public function buscarProcesso($idProcesso): Processo {
@@ -41,5 +51,16 @@ class ProcessoService
 
     public function deletar($idProcesso): Processo {
         return $this->dao->deletar($idProcesso);
+    }
+
+    public function gerarRelatorio() {
+        $processos = $this->dao->listarSemPaginacao();
+        return $this->relatorio->gerarRelatorioStream($processos);
+    }
+
+    public function enviarRelatorioPorEmail($email) {
+        $processos = $this->dao->listarSemPaginacao();
+        $pdf = $this->relatorio->gerarRelatorioPdf($processos);
+        return Mail::to($email)->send(new RelatorioDeProcessosMail($pdf));
     }
 }
