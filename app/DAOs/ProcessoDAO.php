@@ -20,7 +20,7 @@ class ProcessoDAO
     }
 
     public function listarComPaginacao(int $itensPorPagina){
-        return Processo::paginate();
+        return Processo::orderBy('id', 'desc')->paginate();
     }
 
     public function buscarProcesso($idProcesso): Processo {
